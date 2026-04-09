@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal - Manage Database</title>
+    <style>
+        body {
+            background-color: #141414;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+        .admin-container { display: flex; gap: 40px; max-width: 1000px; width: 100%; }
+        .admin-box { background-color: #000; padding: 30px; border-radius: 8px; box-shadow: 0px 0px 20px rgba(229, 9, 20, 0.4); flex: 1; }
+        h2 { text-align: center; color: #e50914; margin-bottom: 20px; margin-top: 0;}
+        label { display: block; margin-top: 15px; font-weight: bold; color: #aaa; font-size: 14px;}
+        input, textarea { width: 100%; padding: 10px; margin-top: 5px; border-radius: 4px; border: 1px solid #333; background-color: #222; color: white; box-sizing: border-box; }
+        .btn-add { width: 100%; padding: 12px; margin-top: 25px; background-color: #e50914; color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s; }
+        .btn-add:hover { background-color: #f40612; }
+        .back-link { display: block; text-align: center; margin-top: 20px; color: #aaa; text-decoration: none; }
+        .back-link:hover { color: white; }
+        .movie-list-item { background-color: #222; padding: 15px; margin-bottom: 10px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #333; }
+        .movie-info { display: flex; flex-direction: column; }
+        .movie-title { font-weight: bold; font-size: 16px; }
+        .movie-year { color: #aaa; font-size: 12px; }
+        .btn-delete { background-color: transparent; color: #aaa; border: 1px solid #aaa; padding: 6px 12px; border-radius: 4px; cursor: pointer; transition: 0.3s; }
+        .btn-delete:hover { background-color: #e50914; color: white; border-color: #e50914; }
+        .btn-edit { background-color: #333; color: white; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 14px; transition: 0.3s; border: 1px solid #333; }
+        .btn-edit:hover { background-color: #555; border-color: #555; }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-box">
+            <h2>Deploy New Movie</h2>
+            <form action="/add_movie" method="POST">
+                <label>Movie Title:</label>
+                <input type="text" name="title" required placeholder="e.g. Inception">
+
+                <label>Release Year:</label>
+                <input type="text" name="year" required placeholder="e.g. 2010">
+
+                <label>Description:</label>
+                <textarea name="description" rows="3" required placeholder="A brief summary..."></textarea>
+
+                <label>Poster Filename:</label>
+                <input type="text" name="poster" required placeholder="e.g. poster.jpg">
+
+                <label>Video Filename:</label>
+                <input type="text" name="video" required placeholder="e.g. movie.mp4">
+
+                <button type="submit" class="btn-add">Add to Database</button>
+            </form>
+            <a href="/" class="back-link">&larr; Return to Main Site</a>
+        </div>
+
+        <div class="admin-box">
+            <h2>Active Database</h2>
+            <div class="movie-list">
+                {% for movie in movies %}
+                <div class="movie-list-item">
+                    <div class="movie-info">
+                        <span class="movie-title">{{ movie['title'] }}</span>
+                        <span class="movie-year">Released: {{ movie['year'] }}</span>
+                    </div>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <a href="/edit_movie/{{ movie['id'] }}" class="btn-edit">Edit</a>
+                        <form action="/delete_movie/{{ movie['id'] }}" method="POST" style="margin: 0;">
+                            <button type="submit" class="btn-delete">Delete</button>
+                        </form>
+                    </div>
+                </div>
+                {% else %}
+                <p style="color: #aaa; text-align: center;">No movies in the database.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal - Edit Movie</title>
+    <style>
+        body { background-color: #141414; color: white; font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .admin-box { background-color: #000; padding: 40px; border-radius: 8px; box-shadow: 0px 0px 20px rgba(229, 9, 20, 0.4); width: 400px; }
+        h2 { text-align: center; color: #fff; margin-bottom: 20px; }
+        label { display: block; margin-top: 15px; font-weight: bold; color: #aaa; }
+        input, textarea { width: 100%; padding: 10px; margin-top: 5px; border-radius: 4px; border: 1px solid #333; background-color: #222; color: white; box-sizing: border-box; }
+        .btn-update { width: 100%; padding: 12px; margin-top: 25px; background-color: #e50914; color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s; }
+        .btn-update:hover { background-color: #f40612; }
+        .back-link { display: block; text-align: center; margin-top: 15px; color: #aaa; text-decoration: none; }
+        .back-link:hover { color: white; }
+    </style>
+</head>
+<body>
+    <div class="admin-box">
+        <h2>Edit Database Entry</h2>
+        <form action="/update_movie/{{ movie['id'] }}" method="POST">
+            <label>Movie Title:</label>
+            <input type="text" name="title" required value="{{ movie['title'] }}">
+
+            <label>Release Year:</label>
+            <input type="text" name="year" required value="{{ movie['year'] }}">
+
+            <label>Description:</label>
+            <textarea name="description" rows="3" required>{{ movie['description'] }}</textarea>
+
+            <label>Poster Filename:</label>
+            <input type="text" name="poster" required value="{{ movie['poster'] }}">
+
+            <label>Video Filename:</label>
+            <input type="text" name="video" required value="{{ movie['video'] }}">
+
+            <button type="submit" class="btn-update">Save Changes</button>
+        </form>
+        <a href="/admin" class="back-link">&larr; Cancel and Return</a>
+    </div>
+</body>
+</html>

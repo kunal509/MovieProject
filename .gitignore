@@ -1,0 +1,10 @@
+# Ignore heavy media files to prevent GitHub rejection
+*.mp4
+*.mkv
+*.webm
+*.mov
+*.avif
+
+# Ignore standard Python background files
+__pycache__/
+*.pyc
